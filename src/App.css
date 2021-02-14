@@ -1,38 +1,65 @@
-.App {
+.App{
+  background-color: hsl(200, 5%, 87%);
+  height: 50rem;
+}
+.App-logo {
+  height: 2rem;
+  width: auto;
+  margin: .25rem .25rem .25rem 8rem;
+}
+
+.App-header { 
+ top: 0;
+ height: 3rem;
+ background-color: yellow;
+ display: flex;
+}
+.App-header form{
+  width: 100%;
+}
+.search{
+  margin: .25rem 0rem .25rem 2rem;
+  height: 2rem;
+  width: 50%;
+}
+
+.search-button{
+  height: 2.4rem;
+  margin: .25rem .25rem .25rem 0rem
+}
+
+.search-button {
+  height: 2rem;
+  background-color: lightgray;
+  border-color: lightgray;
+  
+}
+
+.search-button img{
+  vertical-align: baseline;
+}
+
+/* item list */
+.resultado{
+  margin-top: 3rem;
+}
+
+.card{
+  height: 10rem;;
+}
+
+.item-list-img{
+  text-align: center;
+height: 10rem;
+padding-top: 1rem;
+}
+
+.ubicacion{
+  padding-top: 2rem;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.picture-list{
+  height: -webkit-fill-available;
+  padding: 1px;
 }
