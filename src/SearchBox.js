@@ -3,11 +3,11 @@ import ico from './img/search.svg';
 import './App.css';
 import React, {useState} from 'react';
 import {withRouter,useHistory} from 'react-router';
-
+//caja de búsqueda
 function SearchBox() {
 
-    const [query, setQuery] = useState('');
-    const history = useHistory();
+    const [query, setQuery] = useState('');//Valores de las busquedas
+    const history = useHistory();// Almacena el historial de busqueda y el estado de los componentes
 
     function handleInputChange(val){
         setQuery(val.target.value);

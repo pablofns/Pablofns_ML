@@ -4,10 +4,10 @@ import Item from './Item';
 import React, { useState, useEffect } from 'react';
 import {useRouteMatch} from 'react-router-dom';
 
-
+//Listado de resultados, limitado en 4 Items
 function ItemList(){
 const [data, setData] = useState({});
-let routeMatch = useRouteMatch();
+let routeMatch = useRouteMatch();//captura la url de la búsqueda
 
 useEffect(() => {
     let search = routeMatch.params['search'];
@@ -28,8 +28,7 @@ useEffect(() => {
     fetchSearch();
 },[routeMatch]);
 
-//console.log(data.items);
-
+// Se arma un listado con los datos obtenidos y se mapea y devuelve en Items
 let listado =  typeof data.items !==  "undefined" ? data.items.map((item =>
     <Item item={item}  key={item.id}/>)) : <></>
  

@@ -7,7 +7,10 @@ function Detail() {
   const [isBussy, setIsBussy] = useState(true); // Estado booleano que maneja el tiempo de espera de retorno de la api para renderizar el detalle del producto
   let routeMatch = useRouteMatch(); // Obtenemos la ruta y el id del producto
 
-//C onsultamos la api endpoint (express localhost:5000 - server/index.js) para obtener los datos y descripcion del producto
+//Consultamos la api endpoint para obtener los datos y descripcion del producto
+/** A modo de prueba, a causa del problema de recepción de datos dejo planteada una consulta asíncrona, 
+ * pero no hubo resultado. El objeto se recibe luego de la evaluación y salta la excepción.
+ */
   useEffect(() => {
     const id = routeMatch.params['id'];
     async function fetchProduct () {
@@ -18,7 +21,7 @@ function Detail() {
         }
       })
       const articles = await response.json();
-      console.log(articles);
+      console.log(articles);//Datos recibidos
      return articles;
     }      
       fetchProduct()
@@ -28,22 +31,19 @@ function Detail() {
       })//los datos por alguna razón me llegan luego de que los evalúo y guardo, y tira la excepción..
       .then(res => res.json())
       .then(data => setData(data))
-      .then(() => setIsBussy(false))
+      .then(() => setIsBussy(false))// Se actualiza la bandera luego de recibir los datos
       .catch(error => alert("NO SE HA PODIDO COMUNICAR CON EL SERVIDOR, VERIFIQUE QUE EXPRESS SE ENCUENTRE ACTIVO"));
       //en consola se pueden ver primero el array vacío, y luego el array lleno
    
   }, [routeMatch]);
 
-console.log(data)
 if(typeof data.item !== "undefined"){
-    return(
-               
+    return(               
         <div className="container product-detail">
             <div className="row">
                 <div className="col-md-8">
                     <img src={data.item.picture} alt={data.item.title}/>
                 </div>
-                
                 <div className="col-md-4">
                     <span className="col-md-12"></span>
                     <h6 className="">{data.item.title}</h6>
