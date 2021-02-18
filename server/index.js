@@ -7,14 +7,13 @@ const app = express();
 
 const axiosFetch = axios.create({
     baseURL: "https://api.mercadolibre.com",
-  header: {Auth: "Simple AUTH"},
-  timeout: 5000,
+    header: {Auth: "Simple AUTH"},
+    timeout: 4000,
 })
 
 /* api endpoint de los productos por filtro de busqueda  (TOP 4 delcarado en limit) consumido ItemList.js*/
 
 app.get("/api/items:search", (req, res) => {
-  console.log(req, res);
   axiosFetch.get("/sites/MLA/search?q=" + req.params['search'] + "&limit=4")
   .then(function(response) {
     res.json(FormatFetchItemList(response.data))
@@ -23,18 +22,18 @@ app.get("/api/items:search", (req, res) => {
   })
 })
 
-/* api endpoint del producto por filtro de id consumido por ItemsDescription.js */
-
+/* api endpoint del producto por filtro de id consumido por Detail.js */
+console.log(app);
 app.get("/api/items/:id", (req, res) => {
-  axiosFetch.get("/items/" + req.params['id'])
-  .then(function(responseItem) {
+   axiosFetch.get("/items/" + req.params['id'])
+   .then(function(responseItem) {
     axiosFetch.get("/items/" + req.params['id'] +  "/description")
     .then(function(responseItemDescritpion) {
       res.json(FormatFetchItem(responseItem.data,responseItemDescritpion.data))
     }).catch(function(error) {
       res.json("Error occured!")
     })
-  }).catch(function(error) {
+   }).catch(function(error) {
     res.json("Error occured!")
   })
 })

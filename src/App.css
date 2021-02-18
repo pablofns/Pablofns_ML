@@ -18,7 +18,8 @@
   width: 100%;
 }
 .search{
-  margin: .25rem 0rem .25rem 2rem;
+  vertical-align: middle;
+  margin-left: 3rem;
   height: 2rem;
   width: 50%;
 }
@@ -44,6 +45,11 @@
   margin-top: 3rem;
 }
 
+a, a:hover{
+  text-decoration: none;
+  color: black;
+}
+
 .card{
   height: 10rem;;
 }
@@ -57,9 +63,36 @@ padding-top: 1rem;
 .ubicacion{
   padding-top: 2rem;
   text-align: center;
+  font-size: small;
 }
 
 .picture-list{
   height: -webkit-fill-available;
   padding: 1px;
+}
+
+.link{
+  text-decoration: none;
+  color: black;
+}
+
+.link:onhover{
+  text-decoration: none;
+  color: black;
+}
+/* detalle */
+.product-detail{
+  background-color: white;
+  height: min-content;
+  margin-top: 3rem;
+  padding: 2rem;
+}
+
+.product-detail img{
+  width: 50%;;
+}
+
+.product-detail button{
+  margin-top: 2rem;
+  width: -webkit-fill-available;
 }

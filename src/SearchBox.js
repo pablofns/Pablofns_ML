@@ -9,12 +9,12 @@ function SearchBox() {
     const [query, setQuery] = useState('');
     const history = useHistory();
 
-    function handleInputChange(e){
-        setQuery(e.target.value);
+    function handleInputChange(val){
+        setQuery(val.target.value);
     }
 
-    function handleSubmitForm(e){
-        e.preventDefault();
+    function handleSubmitForm(val){
+        val.preventDefault();
         if(query.length > 0){
           history.push("/items:" + query);
         }

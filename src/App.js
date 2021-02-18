@@ -12,7 +12,7 @@ function App() {
      </Route>
      <Route path="/items:search">
      <ItemList />
-     </Route>
+     </Route> 
      <Route path="/items/:id">
        <Detail />
      </Route>

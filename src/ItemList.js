@@ -6,11 +6,12 @@ import {useRouteMatch} from 'react-router-dom';
 
 
 function ItemList(){
-const [data, setData] = useState([{}]);
+const [data, setData] = useState({});
 let routeMatch = useRouteMatch();
 
 useEffect(() => {
     let search = routeMatch.params['search'];
+    
     function fetchSearch (){
         fetch('/api/items:' + search,{
             method : 'GET',
