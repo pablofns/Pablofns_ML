@@ -13,7 +13,7 @@ function SearchBox() {
         setQuery(val.target.value);
     }
 
-    function handleSubmitForm(val){
+    function handleSubmit(val){
         val.preventDefault();
         if(query.length > 0){
           history.push("/items:" + query);
@@ -25,7 +25,7 @@ function SearchBox() {
     <div>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <form  onSubmit={handleSubmitForm}>
+        <form  onSubmit={handleSubmit}>
         <input className="search" value={query} onChange={handleInputChange}  placeholder="Nunca dejes de buscar"/>
         <button type="submit" className="btn btn-light search-button">
             <img src={ico} className="s-ico" alt="ico" />

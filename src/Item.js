@@ -14,7 +14,7 @@ function Item(item){
                 </div>
                 <div className="col-md-7">
                   <div className="card-body">
-                    <h5 className="card-title">${datos.price['price']}</h5>
+                    <h5 className="card-title">${datos.price['price'].toLocaleString()}</h5>
                     <p className="card-text">{datos.title}</p>
                   
                   </div>

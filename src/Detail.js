@@ -12,32 +12,24 @@ function Detail() {
  * pero no hubo resultado. El objeto se recibe luego de la evaluación y salta la excepción.
  */
   useEffect(() => {
-    const id = routeMatch.params['id'];
-    async function fetchProduct () {
-      const response = await fetch('/api/items/' + id ,{
-        method : 'GET',
-        headers: {
-          "Accept": "application/json"
-        }
-      })
-      const articles = await response.json();
-      console.log(articles);//Datos recibidos
-     return articles;
-    }      
-      fetchProduct()
-      .then(response => {
-        if(!response.item) throw Error(response.status);
-        return response;      
-      })//los datos por alguna razón me llegan luego de que los evalúo y guardo, y tira la excepción..
-      .then(res => res.json())
-      .then(data => setData(data))
-      .then(() => setIsBussy(false))// Se actualiza la bandera luego de recibir los datos
-      .catch(error => alert("NO SE HA PODIDO COMUNICAR CON EL SERVIDOR, VERIFIQUE QUE EXPRESS SE ENCUENTRE ACTIVO"));
-      //en consola se pueden ver primero el array vacío, y luego el array lleno
-   
-  }, [routeMatch]);
+    fetchProduct();   
+  });
 
-if(typeof data.item !== "undefined"){
+  const fetchProduct = async () => {
+    const id = routeMatch.params['id'];
+    //console.log(routeMatch)
+    const response = await fetch('/api/items/' + id ,{
+      method : 'GET',
+      headers: {
+        "Accept": "application/json"
+      }
+    });
+    const data = await response.json();
+    setData(data);
+}
+
+if(typeof data.item != 'undefined' || data.item != null){
+  
     return(               
         <div className="container product-detail">
             <div className="row">
@@ -45,21 +37,21 @@ if(typeof data.item !== "undefined"){
                     <img src={data.item.picture} alt={data.item.title}/>
                 </div>
                 <div className="col-md-4">
-                    <span className="col-md-12"></span>
-                    <h6 className="">{data.item.title}</h6>
-                    <h5 className="col-md-12">${data.item.price}</h5>
+                    <span className="col-md-12">{data.item.condition} - {data.item.sold_quantity} vendidos</span>
+                    <h5 className="">{data.item.title}</h5>
+                    <h2 className="col-md-12">${data.item.price.price.toLocaleString()}</h2>
                     <button type="button" className="btn btn-primary">Comprar</button>
                 </div>
             </div>
             <div className="row">
             <div className="col-md-8">
-                <h5>Descripción del producto</h5>
+                <h4>Descripción del producto</h4>
                 <p>{data.item.description}</p>
                 </div>
             </div>
-        </div>)
+        </div>);
 }else{
- return <h1>No se encontraron resultados para la busqueda</h1>
+ return <h5>..</h5>
 }        
   
 }

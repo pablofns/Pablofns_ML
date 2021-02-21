@@ -8,34 +8,42 @@ const app = express();
 const axiosFetch = axios.create({
     baseURL: "https://api.mercadolibre.com",
     header: {Auth: "Simple AUTH"},
-    timeout: 4000,
+    timeout: 6000,
 })
 
 /* api endpoint de los productos por filtro de busqueda  (TOP 4 delcarado en limit) consumido ItemList.js*/
 
 app.get("/api/items:search", (req, res) => {
+
   axiosFetch.get("/sites/MLA/search?q=" + req.params['search'] + "&limit=4")
-  .then(function(response) {
-    res.json(FormatFetchItemList(response.data))
-  }).catch(function(error) {
+  .then((response) => {
+      res.json(FormatFetchItemList(response.data));
+    }).catch(function(error) {
     res.json("Error occured!")
   })
+
 })
 
 /* api endpoint del producto por filtro de id consumido por Detail.js */
-console.log(app);
+
 app.get("/api/items/:id", (req, res) => {
+//Se hace una primer llamada a la api para traer los datos del item
    axiosFetch.get("/items/" + req.params['id'])
    .then(function(responseItem) {
+//al llegar se ejecuta una segunda petición para la descripcion del mismo
     axiosFetch.get("/items/" + req.params['id'] +  "/description")
     .then(function(responseItemDescritpion) {
+//la respuesta final del fetch la estructuramos segun lo pedido en un json y lo devolvemos
       res.json(FormatFetchItem(responseItem.data,responseItemDescritpion.data))
+
     }).catch(function(error) {
       res.json("Error occured!")
     })
+
    }).catch(function(error) {
     res.json("Error occured!")
   })
+
 })
 
 /* */
@@ -48,13 +56,11 @@ app.listen(PORT, function () {
   console.log(`Express server listening on port ${PORT}`)
 })
 
-
-/*FUCIONES DE CONVERSION DE FORMATO DE LAS API*/
-
+/*FUCIONES DE CONVERSION DE FORMATO*/
 /*Pasa los datos retornados por el endpoint /api/items al formato requerido*/
 function FormatFetchItemList(data) {
-  var item_array = []
-
+  var item_array = [];
+//estructura json definida por el ejercicio:
    data.results.map((item =>
     item_array.push({
       "id" : item.id,
@@ -83,7 +89,7 @@ function FormatFetchItemList(data) {
   return jsonResponse;
 }
 
-/*Pasa los datos retornados por el endpoint /api/items/:id al formato requerido*/
+/*Pasa los datos retornados por el endpoint /api/items/:id  (pantalla Deatail.js) al formato requerido*/
 
 function FormatFetchItem(dataItem,dataItemDescription) {
 
