@@ -7,25 +7,23 @@ function Detail() {
   let routeMatch = useRouteMatch(); // Obtenemos la ruta y el id del producto
 
 //Consultamos la api endpoint para obtener los datos y descripcion del producto
-/** El problema de recepción de datos se soluciono con una consulta asíncrona, 
- * por alguna razon la metodología usada en itemList.js no dio resultado, y lo resolvi así:
- */
+// */
   useEffect(() => {
     fetchProduct();   
   });
 
   
-  const fetchProduct = async () => {
+  const fetchProduct = () => {
     const id = routeMatch.params['id'];
-
-    const response = await fetch('/api/items/' + id ,{
+    fetch('/api/items/' + id ,{
       method : 'GET',
       headers: {
         "Accept": "application/json"
       }
-    });
-    const data = await response.json();
-    setData(data);
+    }).then(response => response.json())
+    .then(data => setData(data))
+    //const data = await response.json();
+    //setData(data);
 }
 
 if(typeof data.item != 'undefined' || data.item != null){
