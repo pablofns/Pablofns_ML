@@ -4,20 +4,20 @@ import {useRouteMatch} from "react-router-dom";
 //Vista Detalle del producto:
 function Detail() {
   const [data, setData] = useState([{}]); // Estado que almacena los datos devueltos por la api
-  const [isBussy, setIsBussy] = useState(true); // Estado booleano que maneja el tiempo de espera de retorno de la api para renderizar el detalle del producto
   let routeMatch = useRouteMatch(); // Obtenemos la ruta y el id del producto
 
 //Consultamos la api endpoint para obtener los datos y descripcion del producto
-/** A modo de prueba, a causa del problema de recepción de datos dejo planteada una consulta asíncrona, 
- * pero no hubo resultado. El objeto se recibe luego de la evaluación y salta la excepción.
+/** El problema de recepción de datos se soluciono con una consulta asíncrona, 
+ * por alguna razon la metodología usada en itemList.js no dio resultado, y lo resolvi así:
  */
   useEffect(() => {
     fetchProduct();   
   });
 
+  
   const fetchProduct = async () => {
     const id = routeMatch.params['id'];
-    //console.log(routeMatch)
+
     const response = await fetch('/api/items/' + id ,{
       method : 'GET',
       headers: {
@@ -37,7 +37,7 @@ if(typeof data.item != 'undefined' || data.item != null){
                     <img src={data.item.picture} alt={data.item.title}/>
                 </div>
                 <div className="col-md-4">
-                    <span className="col-md-12">{data.item.condition} - {data.item.sold_quantity} vendidos</span>
+                    <span className="col-md-12">{data.item.condition === 'new' ? 'Nuevo' : 'Usado'} - {data.item.sold_quantity} vendidos</span>
                     <h5 className="">{data.item.title}</h5>
                     <h2 className="col-md-12">${data.item.price.price.toLocaleString()}</h2>
                     <button type="button" className="btn btn-primary">Comprar</button>

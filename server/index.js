@@ -1,6 +1,5 @@
 const axios = require("axios");
 const express = require("express");
-const path = require("path");
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -8,7 +7,7 @@ const app = express();
 const axiosFetch = axios.create({
     baseURL: "https://api.mercadolibre.com",
     header: {Auth: "Simple AUTH"},
-    timeout: 6000,
+    timeout: 5000,
 })
 
 /* api endpoint de los productos por filtro de busqueda  (TOP 4 delcarado en limit) consumido ItemList.js*/
@@ -27,13 +26,13 @@ app.get("/api/items:search", (req, res) => {
 /* api endpoint del producto por filtro de id consumido por Detail.js */
 
 app.get("/api/items/:id", (req, res) => {
-//Se hace una primer llamada a la api para traer los datos del item
+
    axiosFetch.get("/items/" + req.params['id'])
    .then(function(responseItem) {
-//al llegar se ejecuta una segunda petición para la descripcion del mismo
+
     axiosFetch.get("/items/" + req.params['id'] +  "/description")
     .then(function(responseItemDescritpion) {
-//la respuesta final del fetch la estructuramos segun lo pedido en un json y lo devolvemos
+
       res.json(FormatFetchItem(responseItem.data,responseItemDescritpion.data))
 
     }).catch(function(error) {
@@ -47,10 +46,6 @@ app.get("/api/items/:id", (req, res) => {
 })
 
 /* */
-
-app.get('/', (req,res) => {
-  res.sendFile(path.join(__dirname+'/build/index.html'));
-});
 
 app.listen(PORT, function () {
   console.log(`Express server listening on port ${PORT}`)

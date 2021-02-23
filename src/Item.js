@@ -2,9 +2,9 @@ import './App.css';
 import { Link } from 'react-router-dom';
 
 //Elemento de compone el listado de resultados
-function Item(item){
-    let datos = item.item;
-   //Se agregó el componente Link para darle la "navegabilidad" haicia la siguiente pantalla
+function Item(props){
+    let datos = props.item;
+   //Se agregó el componente Link para darle la "navegabilidad" hacia la siguiente pantalla
     return (
             <Link title={datos.title} to={`items/${datos.id}`} >
             <div className="card">
